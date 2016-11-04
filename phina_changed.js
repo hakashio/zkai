@@ -12414,7 +12414,7 @@ phina.namespace(function() {
             className: 'phina.ui.Gauge',
             arguments: {
               value: 0,
-              width: 10,
+              width: 1000,
               height: 50,
               fill: '#aaa',
               stroke: false,
