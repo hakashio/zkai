@@ -436,6 +436,12 @@ phina.define("MainScene", {
             bgm_ondaiP.stop();
             button_start1.setInteractive(false);
           }
+          if(fc % 120 < 60){
+            title.y += 0.05;
+          }else{
+            title.y -= 0.05;
+          }
+
         }
 
         if(phase == "start"){
