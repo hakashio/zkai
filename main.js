@@ -80,7 +80,7 @@ var JIKI_SIZE = 200;
 var JIKI_SPEED = 8;
 var JIKIHANTEI_SIZE = 1;
 var KOKUBAN_HEIGHT = 230;
-var MUTEKI_TIME = 30;
+var MUTEKI_TIME = 45;
 var SHOT_SIZE = 50;
 var ITEM_SIZE = 60;
 var GAKURYOKU_SIZE = 200;
@@ -794,7 +794,7 @@ phina.define("MainScene", {
         if(shotFlag == true){
           if(fc % 5 == 0){
             var shot1 = shot_Model().addChildTo(shotG);
-            if(gakuryoku >= 30){
+            if(gakuryoku >= 1){
               var shot2 = shot_Model().addChildTo(shotG);
               shot2.x = jiki.x - 40;
               shot2.y = jiki.y + 30;
@@ -1100,7 +1100,8 @@ phina.define("MainScene", {
               //ツイート機能
               var url = phina.social.Twitter.createURL({
                 text: kekka_kabel.text,
-                hashtags: "避けゲーだあああああ!!!!!,勉強シロイド誕生祭2016",
+                //hashtags: "避けゲーだあああああ!!!!!,勉強シロイド誕生祭2016",
+                hashtags: "テスト",
                 url: "http://test",
               });
               window.open(url);
