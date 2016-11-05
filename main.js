@@ -514,9 +514,9 @@ phina.define("MainScene", {
         //ばらまきフェイズ
         if(phase == "atack1"){
           var atack1Power = 30;
-          if(fc > 200)atack1Power = 8;
-          if(fc > 500)atack1Power = 6;
-          if(fc > 900)atack1Power = 4;
+          if(fc > 200)atack1Power = 9;
+          if(fc > 500)atack1Power = 7;
+          if(fc > 900)atack1Power = 5;
           if(fc > 1300)atack1Power = 2;
           if(fc > 1500){
             phase = "boss1Mae";
