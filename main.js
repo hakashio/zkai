@@ -112,6 +112,7 @@ var BUTTON_HEIGHT = 90;
 var ASSETS = {
 //画像読み込み
   image: {
+    pic_flash: "./image/flash.png",
     pic_back1: "./image/back1.jpg",
     pic_back2: "./image/back2.jpg",
     pic_jiki: "./image/jiki.png",
@@ -143,7 +144,6 @@ var ASSETS = {
     pic_shiroid2: "./image/shiroid2.png",
     pic_rekisen1: "./image/rekisen1.png",
     pic_rekisen2: "./image/rekisen2.png",
-    pic_flash: "./image/flash.png",
   },
 
 //画像のアニメーション設定読み込み
