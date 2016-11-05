@@ -92,7 +92,7 @@ var BOSS2_HEIGHT = 200;
 
 var BOSS1_LIFE = 300;
 var BOSS2_LIFE1 = 500;
-var BOSS2_LIFE2 = 400;
+var BOSS2_LIFE2 = 300;
 var BOSS2_LIFE3 = 1500;
 
 //ロゴのサイズに合わせて変える
@@ -468,7 +468,8 @@ phina.define("MainScene", {
           if(fc == 30){
             jikiHantei = CircleShape().addChildTo(this); //自機の当たり判定
             jikiHantei.radius = JIKIHANTEI_SIZE; // 半径を設定
-            jikiHantei.alpha = 0;
+            jikiHantei.fill = "white";
+            jikiHantei.alpha = 1;
             jiki = jiki_Model().addChildTo(jikiG); //自機召喚
             jiki.x = 0;
             jiki.y = SCREEN_HEIGHT/2;
@@ -746,7 +747,7 @@ phina.define("MainScene", {
             boss2.life = BOSS2_LIFE3;
             boss2.maxLife = BOSS2_LIFE3;
           }
-          var power = 11;
+          var power = 12;
           for(var i=1;i<=4;i++){
             if(boss2.life >= boss2.maxLife * i / 4)power += 5;
           }
@@ -935,7 +936,7 @@ phina.define("MainScene", {
             gakuryoku0Flag = false
             gakuryoku = 0;
             gakuryoku0Count = 60;
-            gakuryoku_label.x = jiki.x + 20;
+            gakuryoku_label.x = jiki.x + 5;
             gakuryoku_label.y = jiki.y;
             back1MoveFlag = false;
             jiki.controlFlag = false;
@@ -1276,11 +1277,11 @@ phina.define("jiki_Model", {
     }
 
     //当たり判定の追従
-    jikiHantei.x = this.x + 20;
+    jikiHantei.x = this.x + 30;
     jikiHantei.y = this.y;
     //学力ラベルの追従
     if(gakuryoku > 0){
-      gakuryoku_label.x = this.x + 20;
+      gakuryoku_label.x = this.x + 5;
       gakuryoku_label.y = this.y;
     }
 
