@@ -143,6 +143,7 @@ var ASSETS = {
     pic_shiroid2: "./image/shiroid2.png",
     pic_rekisen1: "./image/rekisen1.png",
     pic_rekisen2: "./image/rekisen2.png",
+    pic_flash: "./image/flash.png",
   },
 
 //画像のアニメーション設定読み込み
@@ -408,6 +409,9 @@ phina.define("MainScene", {
     gakuryoku_label.fontSize = 24;
     gakuryoku_label.fontFamily = "mainfont";
 
+    //起動時にフラッシュを炊く
+    flash = Sprite("pic_flash").addChildTo(this);
+
   },
 
 
@@ -428,16 +432,11 @@ phina.define("MainScene", {
             fc = 0;
             phase = "title";
             bgm_ondaiP.play();
-
-            flash = RectangleShape().addChildTo(this);
-            flash.fill = "white";
-            flash.width = SCREEN_WIDTH;
-            flash.height = SCREEN_HEIGHT;
-            flash.setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         }
 
         //タイトルメイン---------------------------------
         if(phase == "title"){
+          //フラッシュを消す
           flash.alpha -= 0.005;
           if(flash.alpha < 0)flash.alpha = 0;
 
@@ -1577,7 +1576,7 @@ phina.define("boss2a2_Model", {
     var toX = jiki.x;
     var toY = jiki.y + Math.randint(-50,50);
     var direction = Math.atan2(toY - fromY, toX - fromX);
-    var speed = Math.randfloat(10,20);
+    var speed = Math.randfloat(11,20);
     var vx = Math.cos(direction) * speed;
     var vy = Math.sin(direction) * speed;
     this.setPosition(fromX, fromY).physical.force(vx, vy);
