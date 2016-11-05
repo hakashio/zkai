@@ -4,10 +4,11 @@ phina.globalize();
 var SCREEN_WIDTH  = 1280;              // スクリーン幅
 var SCREEN_HEIGHT = 720;              // スクリーン高さ
 
-var FIRST_GAKURYOKU = 40;
+var FIRST_GAKURYOKU = 25;
 
 var fc = 0;
 var year = 0;
+var ondaigoukakuFlag = false;
 var gakuryoku = FIRST_GAKURYOKU;
 var gakuryoku_label;
 var gakuryokuFlag = false;
@@ -53,6 +54,8 @@ var back1;
 var back2;
 var kokuban;
 
+var flash;
+
 var boss1;
 var boss1d;
 var boss2;
@@ -91,7 +94,7 @@ var BOSS2_WIDTH = 600;
 var BOSS2_HEIGHT = 200;
 
 var BOSS1_LIFE = 300;
-var BOSS2_LIFE1 = 500;
+var BOSS2_LIFE1 = 400;
 var BOSS2_LIFE2 = 300;
 var BOSS2_LIFE3 = 1500;
 
@@ -248,7 +251,7 @@ phina.define("MainScene", {
 
 
     //画像読み込み------------------------------------------------------------------------------
-    //背景の表示
+
     back1 = Sprite("pic_back1").addChildTo(this);
     back1.origin.set(0, 0); // 左上基準に変更
 
@@ -268,10 +271,69 @@ phina.define("MainScene", {
     rekisen_button.alpha = 0;
     rekisen2 = Sprite("pic_rekisen2").addChildTo(this);
     rekisen1 = Sprite("pic_rekisen1").addChildTo(this);
+
     button_start2 = Sprite("pic_button_start2").addChildTo(this);
     button_start1 = Sprite("pic_button_start1").addChildTo(this);
     title = Sprite("pic_title").addChildTo(this);
     push = Label("PUSH SPACE").addChildTo(this);
+    button_start1.x = SCREEN_WIDTH/2;
+    button_start1.y = 560;
+    button_start2.x = SCREEN_WIDTH/2;
+    button_start2.y = 560;
+    title.origin.set(0, 0); // 左上基準に変更
+    push.x = SCREEN_WIDTH/2; // x 座標を指定
+    push.y = 630; // y 座標を指定
+    push.fill = 'black'; // 色を変更
+    push.fontSize = 24; // フォントサイズを変更
+    push.fontFamily = "mainfont";
+    shiroid_button.x = 1100;
+    shiroid2.x = 1100;
+    shiroid1.x = 1100;
+    rekisen_button.x = 1100;
+    rekisen2.x = 1100;
+    rekisen1.x = 1100;
+    shiroid_button.y = 450;
+    shiroid2.y = 450;
+    shiroid1.y = 450;
+    rekisen_button.y = 600;
+    rekisen2.y = 600;
+    rekisen1.y = 600;
+
+    button_start1.setInteractive(true); //タッチ設定
+    button_start1.onpointover = function() { //乗ったとき
+      button_start1.alpha = 0;
+    }
+    button_start1.onpointout = function() { //離れたとき
+      button_start1.alpha = 1;
+    }
+    button_start1.onpointend = function() { //タッチ終了時
+      phase = "start";
+      phaseInitFlag = true;
+      bgm_ondaiP.stop();
+      button_start1.setInteractive(false);
+    }
+
+    shiroid1.setInteractive(true); //タッチ設定
+    shiroid1.onpointover = function() { //乗ったとき
+      shiroid1.alpha = 0;
+    }
+    shiroid1.onpointout = function() { //離れたとき
+      shiroid1.alpha = 1;
+    }
+    shiroid_button.onclick = function() {
+      window.open('http://www.nicovideo.jp/tag/%E5%8B%89%E5%BC%B7%E3%82%B7%E3%83%AD%E3%82%A4%E3%83%89%E8%AA%95%E7%94%9F%E7%A5%AD2016');
+    }
+    rekisen1.setInteractive(true); //タッチ設定
+    rekisen1.onpointover = function() { //乗ったとき
+      rekisen1.alpha = 0;
+    }
+    rekisen1.onpointout = function() { //離れたとき
+      rekisen1.alpha = 1;
+    }
+    rekisen_button.onclick = function() {
+      window.open('http://www.nicovideo.jp/watch/sm0000000000');
+    }
+
     kokuban = Sprite("pic_kokuban").addChildTo(this);
     kokuban.x = 500;
     kokuban.y = 150;
@@ -366,70 +428,19 @@ phina.define("MainScene", {
             fc = 0;
             phase = "title";
             bgm_ondaiP.play();
-            var x = SCREEN_WIDTH/2;
-            var y = 560;
-            button_start1.x = x;
-            button_start1.y = y;
-            button_start2.x = x;
-            button_start2.y = y;
-            title.origin.set(0, 0); // 左上基準に変更
-            push.x = x; // x 座標を指定
-            push.y = 630; // y 座標を指定
-            push.fill = 'black'; // 色を変更
-            push.fontSize = 24; // フォントサイズを変更
-            push.fontFamily = "mainfont";
-            shiroid_button.x = 1100;
-            shiroid2.x = 1100;
-            shiroid1.x = 1100;
-            rekisen_button.x = 1100;
-            rekisen2.x = 1100;
-            rekisen1.x = 1100;
-            shiroid_button.y = 450;
-            shiroid2.y = 450;
-            shiroid1.y = 450;
-            rekisen_button.y = 600;
-            rekisen2.y = 600;
-            rekisen1.y = 600;
 
-            button_start1.setInteractive(true); //タッチ設定
-            button_start1.onpointover = function() { //乗ったとき
-              button_start1.alpha = 0;
-            }
-            button_start1.onpointout = function() { //離れたとき
-              button_start1.alpha = 1;
-            }
-            button_start1.onpointend = function() { //タッチ終了時
-              phase = "start";
-              phaseInitFlag = true;
-              bgm_ondaiP.stop();
-              button_start1.setInteractive(false);
-            }
-
-            shiroid1.setInteractive(true); //タッチ設定
-            shiroid1.onpointover = function() { //乗ったとき
-              shiroid1.alpha = 0;
-            }
-            shiroid1.onpointout = function() { //離れたとき
-              shiroid1.alpha = 1;
-            }
-            shiroid_button.onclick = function() {
-              window.open('http://www.nicovideo.jp/tag/%E5%8B%89%E5%BC%B7%E3%82%B7%E3%83%AD%E3%82%A4%E3%83%89%E8%AA%95%E7%94%9F%E7%A5%AD2016');
-            }
-            rekisen1.setInteractive(true); //タッチ設定
-            rekisen1.onpointover = function() { //乗ったとき
-              rekisen1.alpha = 0;
-            }
-            rekisen1.onpointout = function() { //離れたとき
-              rekisen1.alpha = 1;
-            }
-            rekisen_button.onclick = function() {
-              window.open('http://www.nicovideo.jp/watch/sm0000000000');
-            }
-
+            flash = RectangleShape().addChildTo(this);
+            flash.fill = "white";
+            flash.width = SCREEN_WIDTH;
+            flash.height = SCREEN_HEIGHT;
+            flash.setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         }
 
         //タイトルメイン---------------------------------
         if(phase == "title"){
+          flash.alpha -= 0.005;
+          if(flash.alpha < 0)flash.alpha = 0;
+
           if(key.getKey("space")){
             phase = "start";
             phaseInitFlag = true;
@@ -441,7 +452,6 @@ phina.define("MainScene", {
           }else{
             title.y -= 0.05;
           }
-
         }
 
         if(phase == "start"){
@@ -449,6 +459,7 @@ phina.define("MainScene", {
             phaseInitFlag = false;
             fc = 0;
             se_kaanP.play();
+            flash.remove();
           }
 
           if(fc < 20){ //20フレームで捌ける
@@ -507,6 +518,7 @@ phina.define("MainScene", {
         if(sceneInitFlag == true){
             sceneInitFlag = false;
             fc = 0;
+            ondaigoukakuFlag = true;
         }
 
         //メインメイン----------------------------------
@@ -517,7 +529,7 @@ phina.define("MainScene", {
           if(fc > 200)atack1Power = 9;
           if(fc > 500)atack1Power = 7;
           if(fc > 900)atack1Power = 5;
-          if(fc > 1300)atack1Power = 2;
+          if(fc > 1350)atack1Power = 2;
           if(fc > 1500){
             phase = "boss1Mae";
             phaseInitFlag = true;
@@ -589,7 +601,7 @@ phina.define("MainScene", {
             phase = "boss2Mae";
             phaseInitFlag = true;
             se_kaanP.play();
-            for(var i=0;i<5;i++){
+            for(var i=0;i<4;i++){
               var item = item_Model(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,Math.randfloat(-0.5,0.5),Math.randfloat(-0.5,0.5)).addChildTo(itemG);
             }
           }
@@ -665,6 +677,9 @@ phina.define("MainScene", {
             se_kaanP.play();
             phase = "boss2a2Mae"
             phaseInitFlag = true;
+            for(var i=0;i<2;i++){ //アイテムを飛ばす
+              var item = item_Model(boss2.x,boss2.y,Math.randfloat(-4,-7),Math.randfloat(-0.5,0.5)).addChildTo(itemG);
+            }
           }
         }
 
@@ -673,6 +688,7 @@ phina.define("MainScene", {
           if(phaseInitFlag == true){ //初期化
             phaseInitFlag = false;
             fc = 0;
+
           }
           if(fc > 120){
             phase = "boss2a2"
@@ -714,6 +730,9 @@ phina.define("MainScene", {
             boss2.ySpeed = 0;
             phase = "boss2a3Mae"
             phaseInitFlag = true;
+            for(var i=0;i<2;i++){ //アイテムを飛ばす
+              var item = item_Model(boss2.x,boss2.y,Math.randfloat(-4,-7),Math.randfloat(-0.5,0.5)).addChildTo(itemG);
+            }
           }
         }
 
@@ -803,7 +822,7 @@ phina.define("MainScene", {
               shot3.x = jiki.x - 40;
               shot3.y = jiki.y - 30;
             }
-            if(gakuryoku >= 80){
+            if(gakuryoku >= 70){
               var shot4 = shot_Model().addChildTo(shotG);
               shot4.x = jiki.x;
               shot4.y = jiki.y + 90;
@@ -824,6 +843,7 @@ phina.define("MainScene", {
               gakuryoku += 5;
               var gakuryoku_up = gakuryoku_up_Model().addChildTo(gakuryoku_upG);
               gakuryokuFlag = true;
+              ondaigoukakuFlag = false;
             }
           }, this);
         }
@@ -921,6 +941,7 @@ phina.define("MainScene", {
           if(damageCount > MUTEKI_TIME){
             damageCount = 0;
             gakuryoku -= 5;
+            ondaigoukakuFlag = false;
             if(damageFlag_boss2 == true){ //ボスへの衝突時は99ダメージ
               gakuryoku -= 94;
               damageFlag_boss2 = false;
@@ -972,7 +993,7 @@ phina.define("MainScene", {
           gakuryoku_label.text = gakuryoku;
           if(gakuryoku < 30)gakuryoku_label.fill = "red";
           if(gakuryoku >= 30)gakuryoku_label.fill = "white";
-          if(gakuryoku >= 80)gakuryoku_label.fill = "yellow";
+          if(gakuryoku >= 70)gakuryoku_label.fill = "yellow";
         }
         gakuryoku_label.alpha -= 0.01;
         if(gakuryoku_label.alpha < 0)gakuryoku_label.alpha = 0;
@@ -1059,12 +1080,12 @@ phina.define("MainScene", {
 
             if(gakuryoku >= 1){ //合格
 
-              if(gakuryoku == 1){ //音大合格
+              if(ondaigoukakuFlag == true){ //音大合格
                 goukaku3.y = 0;
                 if(year == 0)kekka_kabel.text = "音大現役合格";
                 if(year >= 1)kekka_kabel.text = year + "浪 で 音大合格";
               }
-              if(gakuryoku >= 2){ //普通の合格
+              if(ondaigoukakuFlag == false){ //普通の合格
                 goukaku1.y = 0;
                 if(year == 0)kekka_kabel.text = "現役合格　" + gakuryoku + "点";
                 if(year >= 1)kekka_kabel.text = year + "浪 で 合格　" + gakuryoku + "点";
