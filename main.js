@@ -930,6 +930,14 @@ phina.define("MainScene", {
             se_howaaP.play();
           }
         }
+        //即死コマンド
+        if(key.getKeyUp("escape")){
+          if(damageCount > MUTEKI_TIME){
+            damageFlag = true;
+            gakuryoku = 5;
+          }
+        }
+
         //学力0
         if(gakuryoku <= 0){
           if(gakuryoku0Flag == true){
