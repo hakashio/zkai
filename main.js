@@ -77,7 +77,7 @@ var boss2a31G;
 var boss2a32G;
 
 var JIKI_SIZE = 200;
-var JIKI_SPEED = 8;
+var JIKI_SPEED = 9;
 var JIKIHANTEI_SIZE = 1;
 var KOKUBAN_HEIGHT = 230;
 var MUTEKI_TIME = 60;
