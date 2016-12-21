@@ -68,6 +68,7 @@ var gakuryoku_upG;
 var gakuryoku_downG;
 
 var atack1G;
+var killerG;
 var boss1G;
 var boss1dG;
 var boss1a1G;
@@ -99,13 +100,16 @@ var BOSS2_LIFE2 = 300;
 var BOSS2_LIFE3 = 1500;
 
 //ロゴのサイズに合わせて変える
-var SHIROID_WIDTH = 302
-var SHIROID_HEIGHT = 172
+var SHIROID_WIDTH = 300;
+var SHIROID_HEIGHT = 200;
 var REKISEN_WIDTH = 309;
 var REKISEN_HEIGHT = 105;
 
 var BUTTON_WIDTH = 228;
 var BUTTON_HEIGHT = 90;
+
+var KILLER_WIDTH = 350;
+var KILLER_HEIGHT = 200;
 
 
 // 定数
@@ -144,6 +148,7 @@ var ASSETS = {
     pic_shiroid2: "./image/shiroid2.png",
     pic_rekisen1: "./image/rekisen1.png",
     pic_rekisen2: "./image/rekisen2.png",
+    pic_killer: "./image/killer.png",
   },
 
 //画像のアニメーション設定読み込み
@@ -332,7 +337,7 @@ phina.define("MainScene", {
       rekisen1.alpha = 1;
     }
     rekisen_button.onclick = function() {
-      window.open('http://www.nicovideo.jp/watch/sm0000000000');
+      window.open('http://www.nicovideo.jp/watch/sm30270758');
     }
 
     kokuban = Sprite("pic_kokuban").addChildTo(this);
@@ -402,6 +407,8 @@ phina.define("MainScene", {
 
     boss2d = boss2d_Model().addChildTo(boss2dG);
     boss2 = boss2_Model().addChildTo(boss2G); //ボス召喚
+
+    killerG = DisplayElement().addChildTo(this);
 
     gakuryoku_label = Label("学力").addChildTo(this);
     gakuryoku_label.alpha = 0;
@@ -535,6 +542,11 @@ phina.define("MainScene", {
           }
           if(fc % atack1Power == 0){
             var atack1 = atack1_Model().addChildTo(atack1G);
+          }
+          //キラー召喚
+          if(fc == 700 || fc == 1000){
+            var killer = killer_Model().addChildTo(killerG);
+            se_dosunP.play();
           }
           //アイテム召喚
           var x = SCREEN_WIDTH + ITEM_SIZE/2;
@@ -874,6 +886,11 @@ phina.define("MainScene", {
               damageFlag = true;
             }
           }, this);
+          killerG.children.each(function(child) {
+            if (jikiHantei.hitTestElement(child)) { // 衝突していたら
+              damageFlag = true;
+            }
+          }, this);
           boss1a1G.children.each(function(child) {
             if (jikiHantei.hitTestElement(child)) { // 衝突していたら
               child.remove();
@@ -1129,9 +1146,8 @@ phina.define("MainScene", {
               //ツイート機能
               var url = phina.social.Twitter.createURL({
                 text: kekka_kabel.text,
-                //hashtags: "避けゲーだあああああ!!!!!,勉強シロイド誕生祭2016",
-                hashtags: "テスト",
-                url: "http://test",
+                hashtags: "避けゲーだあああああ!!!!!,勉強シロイド誕生祭2016",
+                url: "https://hakashio.github.io/zkai/",
               });
               window.open(url);
             }
@@ -1481,6 +1497,26 @@ phina.define("atack1_Model", {
     this.y += this.ySpeed;
     // 画面から見えなくなったら消す
     if (this.x < 0 - BULLET1_SIZE) {
+      this.remove();
+    }
+  }
+});
+
+//キラー
+phina.define("killer_Model", {
+  superClass: "phina.display.Sprite",
+  init: function() {
+    this.superInit("pic_killer", KILLER_WIDTH, KILLER_HEIGHT);
+    this.x = SCREEN_WIDTH + KILLER_WIDTH;
+    this.y = Math.randint(KILLER_HEIGHT, SCREEN_HEIGHT - KILLER_HEIGHT);
+    this.xSpeed = -10;
+    this.ySpeed = 0;
+  },
+  update: function() {
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+    // 画面から見えなくなったら消す
+    if (this.x < 0 - KILLER_WIDTH) {
       this.remove();
     }
   }
